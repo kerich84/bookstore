@@ -1,4 +1,4 @@
-<h1>Books</h1>
+<h1><%= pluralize(@books.size, "Book") %></h1>
 <p>Available as <%= formatted_time(@available_at) %></p>
 <ol>
 	<% @books.each do |book| %>
