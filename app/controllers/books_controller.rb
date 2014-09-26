@@ -8,7 +8,7 @@ class BooksController < ApplicationController
 
 	def index
 		@available_at = Time.now
-		@books = Book.all
+		@books = Book.order(:title).page(params[:page])
 	end
 
 	def show; end
@@ -19,15 +19,21 @@ class BooksController < ApplicationController
 
 	def create
 		@book = Book.new(book_params)
-		@book.save
-		redirect_to @book
+		if @book.save
+			redirect_to @book, notice:"#{@book.title} was created!"
+		else
+			render :new
+		end
 	end
 
 	def edit; end
 
 	def update
-		@book.update(book_params)
-		redirect_to @book
+		if @book.update(book_params)
+			redirect_to @book, notice:"#{@book.title} was updated!"
+		else
+			render :new
+		end
 	end
 
 	def destroy

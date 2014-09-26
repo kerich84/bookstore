@@ -1,6 +1,9 @@
 Bookstore::Application.routes.draw do
-  resources :books #This replaced the next 6 lines!
+  resources :books do
+    get 'page/:page', :action => :index, :on => :collection
+  end 
 
+  #resources:books replaced the next 6 lines!
   # get "/books" => "books#index", as: 'books'
   # get "/books/new" => "books#new", as: 'new_book'
   # get "/books/:id" => "books#show", as: 'book'
@@ -8,7 +11,7 @@ Bookstore::Application.routes.draw do
   # get "/books/:id/edit" => "books#edit", as: 'edit_book'
   # patch "/books/:id" => "books#update"
   # delete "/books/:id" => "books#destroy"
-
+  root 'books#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
